@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Nesrine Application Template</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+
+    <!-- Navigation item -->
+    <string name="nav_region">Search by name</string>
+    <string name="nav_searchNearBy">Search Near By</string>
+    <string name="nav_currentatLng">CurrentLatLng</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_db">Db Connection</string>
+</resources>
