@@ -54,7 +54,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
      * Fragment
      */
     private Fragment SearchByName_Fragment,
-                    SearchNearBy_Fragment,CurrentLocation_Fragemnt,settings_Fragemnt,db_Fragement;
+                    SearchNearBy_Fragment,CurrentLocation_Fragemnt,
+            settings_Fragemnt,db_Fragement, acceuil_Fragement;
 
 
 
@@ -66,7 +67,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                             Fragment_SearchNearBY = 2,
                             Fragement_CurrentLocation = 3,
                             Fragement_Settings = 4,
-                            Fragement_db = 5;
+                            Fragement_db = 5,
+                            Fragement_Acceuil = 6;
 
 
 
@@ -131,6 +133,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                 break;
             case R.id.nav_db:
                 this.showFragment(Fragement_db);
+                break;
+            case R.id.nav_acceuil:
+                this.showFragment(Fragement_Acceuil);
                 break;
             default:
                 break;
@@ -212,6 +217,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             case Fragement_db:
                 this.showDB();
                 break;
+            case Fragement_Acceuil:
+                this.showAcceuil();
+                break;
             default:
                 break;
         }
@@ -260,6 +268,15 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         }
         this.startTransactionFragment(this.db_Fragement);
     }
+
+    private void showAcceuil(){
+        if(this.acceuil_Fragement == null){
+            this.acceuil_Fragement = Acceuil.newInstance();
+        }
+        this.startTransactionFragment(this.acceuil_Fragement);
+    }
+
+
 
 
     /**

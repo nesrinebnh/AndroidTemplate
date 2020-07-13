@@ -28,6 +28,9 @@ public class BackgroundDB extends AsyncTask<String, Void, String> {
     @Override
     protected String doInBackground(String... voids) {
         String type = voids[0];
+
+
+
         String check_url = "http://192.168.1.7/Zahra/login.php";
 
         if(type.equals("login")){

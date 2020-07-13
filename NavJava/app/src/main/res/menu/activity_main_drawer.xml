@@ -4,7 +4,10 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-
+        <item
+            android:id="@+id/nav_acceuil"
+            android:icon="@drawable/minus"
+            android:title="@string/nav_acceuil" />
         <item
             android:id="@+id/nav_name"
             android:icon="@drawable/minus"

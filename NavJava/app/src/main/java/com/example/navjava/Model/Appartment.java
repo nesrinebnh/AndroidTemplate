@@ -7,6 +7,15 @@ public class Appartment {
 
     public Appartment(){}
 
+    public Appartment(String name, String type, String lat, String lng, String address, String prix){
+        this.name = name;
+        this.type = type;
+        this.lat = lat;
+        this.lng = lng;
+        this.ref = address;
+        this.price = prix;
+    }
+
     public Appartment(String name){
         this.name = name;
     }
