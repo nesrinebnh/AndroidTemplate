@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2020 at 11:58 AM
+-- Generation Time: Jul 14, 2020 at 02:10 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -19,6 +19,32 @@ SET time_zone = "+00:00";
 --
 -- Database: `bd`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `appartement`
+--
+
+CREATE TABLE IF NOT EXISTS `appartement` (
+  `id` int(11) NOT NULL,
+  `name` varchar(120) NOT NULL,
+  `type` varchar(50) NOT NULL,
+  `lat` double NOT NULL,
+  `lng` double NOT NULL,
+  `adress` varchar(200) CHARACTER SET utf8 NOT NULL,
+  `prix` double NOT NULL,
+  `image` varchar(300) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `appartement`
+--
+
+INSERT INTO `appartement` (`id`, `name`, `type`, `lat`, `lng`, `adress`, `prix`, `image`) VALUES
+(1, 'app1', 'vendre', 14.3521, 37.12584, 'Alger, Algerie', 1000000, 'uploads/5f0d7fcf554618.77509514.jpg'),
+(2, 'app2', 'vendre', 15.214, 37.125, 'Bab ezzouar Algerie', 178000, 'uploads/5f0d8011b62d04.11842460.jpg');
 
 -- --------------------------------------------------------
 
