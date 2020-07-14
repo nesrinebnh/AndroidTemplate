@@ -7,8 +7,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.navjava.Acceuil;
 import com.example.navjava.Fragment2;
@@ -57,6 +59,7 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.MyViewHo
 
         TextView location, price;
         ImageView image;
+        Button map, infos;
 
         View layout;
         public MyViewHolder(View view){
@@ -66,6 +69,8 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.MyViewHo
             location = (TextView) view.findViewById(R.id.location);
             price = view.findViewById(R.id.price);
             image = view.findViewById(R.id.imageView);
+            map = view.findViewById(R.id.map);
+            infos = view.findViewById(R.id.infos);
 
         }
     }
@@ -78,6 +83,19 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.MyViewHo
         holder.price.setText((fragment2.getPrice()+" DA"));
         Picasso.get().load("http://192.168.1.2/Zahra/"+fragment2.getImage()).into(holder.image);
         //this.fragment2.prepareData();
+        holder.map.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "map"+position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        holder.infos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(context, "infos"+position, Toast.LENGTH_SHORT).show();
+            }
+        });
         Log.i("TAG", "name::  "+fragment2.getName());
 
 
