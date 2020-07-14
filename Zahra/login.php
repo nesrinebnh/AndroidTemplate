@@ -4,7 +4,7 @@
 
 	$code = strval($_POST["check"]);
 	//echo 'code '.$code.' type '.gettype($code);
-	//$code = "OU-EPSP-15221";
+	//$code = "OU-EPH-14339";
 	echo 'code '.$code.' type '.gettype($code);
 	//echo 'type '.gettype($code);
 	$mysql_qry = "select code_etab, etablissement from etablissements where code_etab like '$code';";
