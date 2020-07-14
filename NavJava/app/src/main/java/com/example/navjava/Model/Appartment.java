@@ -3,33 +3,25 @@ package com.example.navjava.Model;
 import java.util.List;
 
 public class Appartment {
-    String id,lat,lng,name,ref,vicinity,type,openDays,price,capacity,couvert;
+    String id,lat,lng,name,ref,vicinity,type,openDays,price,capacity,couvert, image;
 
     public Appartment(){}
 
-    public Appartment(String name, String type, String lat, String lng, String address, String prix){
+    public Appartment(String name, String type, String lat, String lng, String address, String prix, String image){
         this.name = name;
         this.type = type;
         this.lat = lat;
         this.lng = lng;
         this.ref = address;
         this.price = prix;
+        this.image = image;
     }
 
     public Appartment(String name){
         this.name = name;
     }
 
-    public Appartment(String lat, String lng, String name, String ref, String vicinity, String type,String price) {
-        this.lat = lat;
-        this.lng = lng;
-        this.name = name;
-        this.ref = ref;
-        this.vicinity = vicinity;
-        this.type = type;
-        this.price = price;
 
-    }
 
 
     public Appartment(String id,String lat, String lng, String name, String ref, String vicinity,  String type,String price) {
@@ -123,6 +115,9 @@ public class Appartment {
     public void setPrice(String price) {
         this.price = price;
     }
+
+    public void setImage(String image){this.image = image;}
+    public String getImage(){return image;}
 
 
 

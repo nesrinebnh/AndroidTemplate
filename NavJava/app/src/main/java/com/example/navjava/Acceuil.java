@@ -77,10 +77,11 @@ public class Acceuil extends Fragment {
         return view;
     }
 
-    private void prepareData(){
+    public void prepareData(){
         /*appartmentHashMap.put("val1", new Appartment("name1"));
         appartmentHashMap.put("val2",new Appartment("name2"));
         appartmentHashMap.put("val3",new Appartment("name3"));*/
+        Log.i("UPDATE UI", "UI UPDATED");
         recycleAdapter.notifyDataSetChanged();
     }
 
@@ -196,12 +197,12 @@ public class Acceuil extends Fragment {
                             Appartment appartment = new Appartment(obj.getString("name"),
                                     obj.getString("type"), obj.getString("lat"),
                                     obj.getString("lng"), obj.getString("adress"),
-                                obj.getString("prix"));
+                                obj.getString("prix"), obj.getString("image"));
                             appartmentHashMap.add(appartment);
                         }
 
                         Log.i("Appartment size ",String.valueOf(appartmentHashMap.size()));
-
+                        prepareData();
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

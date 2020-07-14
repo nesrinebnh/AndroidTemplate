@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.navjava.Acceuil;
@@ -14,6 +15,7 @@ import com.example.navjava.Fragment2;
 import com.example.navjava.Model.Appartment;
 import com.example.navjava.R;
 import com.google.android.gms.common.api.Api;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
@@ -54,6 +56,7 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder{
 
         TextView location, price;
+        ImageView image;
 
         View layout;
         public MyViewHolder(View view){
@@ -62,6 +65,7 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.MyViewHo
             Log.i("TAG","ok");
             location = (TextView) view.findViewById(R.id.location);
             price = view.findViewById(R.id.price);
+            image = view.findViewById(R.id.imageView);
 
         }
     }
@@ -72,6 +76,8 @@ public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.MyViewHo
         Appartment fragment2 = appartmentList.get(position);
         holder.location.setText(fragment2.getRef());
         holder.price.setText((fragment2.getPrice()+" DA"));
+        Picasso.get().load("http://192.168.1.2/Zahra/"+fragment2.getImage()).into(holder.image);
+        //this.fragment2.prepareData();
         Log.i("TAG", "name::  "+fragment2.getName());
 
 
