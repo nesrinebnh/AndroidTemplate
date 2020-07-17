@@ -7,10 +7,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-public class Fragment1 extends Fragment {
+public class SimplaCardView extends Fragment {
 
-    public static Fragment1 newInstance() {
-        return (new Fragment1());
+    public static SimplaCardView newInstance() {
+        return (new SimplaCardView());
     }
 
     MainActivity mapsActivity;
@@ -21,7 +21,7 @@ public class Fragment1 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fragment1, container, false);
         mapsActivity = (MainActivity) getActivity();
-        ((MainActivity) getActivity()).setActionBarTitle("Fragment1");
+        ((MainActivity) getActivity()).setActionBarTitle("SimplaCardView");
         txt1 = view.findViewById(R.id.text);
         txt2 = view.findViewById(R.id.text2);
 

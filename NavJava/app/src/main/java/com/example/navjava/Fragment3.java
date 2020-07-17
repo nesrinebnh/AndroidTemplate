@@ -27,7 +27,7 @@ public class Fragment3 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fragment3, container, false);
         mapsActivity = (MainActivity) getActivity();
-        ((MainActivity) getActivity()).setActionBarTitle("Fragment1");
+        ((MainActivity) getActivity()).setActionBarTitle("SimplaCardView");
 
         txt = view.findViewById(R.id.txt1);
         txt1 = view.findViewById(R.id.txt2);

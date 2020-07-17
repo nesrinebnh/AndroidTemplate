@@ -2,7 +2,7 @@ package com.example.navjava.appartment;
 
 import android.os.AsyncTask;
 
-import com.example.navjava.SearchNearBy;
+import com.example.navjava.SearchTheNearestInGoogleMap;
 import com.google.android.gms.maps.GoogleMap;
 
 import java.io.IOException;
@@ -14,10 +14,10 @@ public class Places extends AsyncTask<Object,String,String> {
     String placesData;
     GoogleMap mMap;
     String url;
-    private SearchNearBy mainActivity;
+    private SearchTheNearestInGoogleMap mainActivity;
 
 
-    public void setMainActivity(SearchNearBy activity){
+    public void setMainActivity(SearchTheNearestInGoogleMap activity){
         mainActivity = activity;
     }
 

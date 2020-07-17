@@ -9,6 +9,11 @@
             android:icon="@drawable/minus"
             android:title="@string/nav_acceuil" />
         <item
+            android:id="@+id/nav_image"
+            android:icon="@drawable/minus"
+            android:title="@string/nav_image" />
+
+        <item
             android:id="@+id/nav_name"
             android:icon="@drawable/minus"
             android:title="@string/nav_region" />

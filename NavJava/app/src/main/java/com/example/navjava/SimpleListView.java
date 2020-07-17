@@ -1,12 +1,7 @@
 package com.example.navjava;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,17 +10,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.maps.SupportMapFragment;
 
 import java.util.Arrays;
 import java.util.List;
 
-public class Settings extends Fragment {
+public class SimpleListView extends Fragment {
 
-    public static Settings newInstance() {
-        return (new Settings());
+    public static SimpleListView newInstance() {
+        return (new SimpleListView());
     }
 
     MainActivity mapsActivity;
@@ -37,7 +29,7 @@ public class Settings extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_settings, container, false);
         mapsActivity = (MainActivity) getActivity();
-        ((MainActivity) getActivity()).setActionBarTitle("Settings");
+        ((MainActivity) getActivity()).setActionBarTitle("SimpleListView");
 
         listView = view.findViewById(R.id.listview);
         /** recuperer les valeurs de la liste de settings ici avant d'appeler l'adapter*/

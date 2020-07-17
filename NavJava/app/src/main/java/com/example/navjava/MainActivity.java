@@ -1,36 +1,20 @@
 package com.example.navjava;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.firebase.FirebaseApp;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.gson.Gson;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.google.android.gms.maps.model.LatLng;
 
 
 /**
@@ -55,7 +39,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
      */
     private Fragment SearchByName_Fragment,
                     SearchNearBy_Fragment,CurrentLocation_Fragemnt,
-            settings_Fragemnt,db_Fragement, acceuil_Fragement;
+            settings_Fragemnt,db_Fragement, acceuil_Fragement,
+            image_Fragment;
 
 
 
@@ -68,7 +53,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
                             Fragement_CurrentLocation = 3,
                             Fragement_Settings = 4,
                             Fragement_db = 5,
-                            Fragement_Acceuil = 6;
+                            Fragement_Acceuil = 6,
+                            Fragement_image = 7;
 
 
 
@@ -137,6 +123,9 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             case R.id.nav_acceuil:
                 this.showFragment(Fragement_Acceuil);
                 break;
+            case R.id.nav_image:
+                this.showFragment(Fragement_image);
+                break;
             default:
                 break;
         }
@@ -186,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
         Fragment visibleFragment = getSupportFragmentManager().findFragmentById(R.id.activity_main_frame_layout);
         if (visibleFragment == null){
 
-            this.showFragment(FRAGMENT_SearchByName);
+            this.showFragment(Fragement_Acceuil);
             /*if(!getCurrentUser().equals(""))
                 this.navigationView.getMenu().getItem(0).setChecked(true);
             else
@@ -220,6 +209,8 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             case Fragement_Acceuil:
                 this.showAcceuil();
                 break;
+            case Fragement_image:
+                this.showImage();
             default:
                 break;
         }
@@ -235,14 +226,14 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
     private void showSearchByNameFragment(){
 
         if (this.SearchByName_Fragment == null){
-            this.SearchByName_Fragment = SearchByNameFragment.newInstance();
+            this.SearchByName_Fragment = SearchByNameInGoogleMap.newInstance();
         }
         this.startTransactionFragment(this.SearchByName_Fragment);
     }
 
     private void showSearchNearByFragment(){
         if (this.SearchNearBy_Fragment == null){
-            this.SearchNearBy_Fragment = SearchNearBy.newInstance();
+            this.SearchNearBy_Fragment = SearchTheNearestInGoogleMap.newInstance();
         }
         this.startTransactionFragment(this.SearchNearBy_Fragment);
     }
@@ -257,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
 
     private void showSettings(){
         if(this.settings_Fragemnt == null){
-            this.settings_Fragemnt = Settings.newInstance();
+            this.settings_Fragemnt = SimpleListView.newInstance();
         }
         this.startTransactionFragment(this.settings_Fragemnt);
     }
@@ -274,6 +265,13 @@ public class MainActivity extends AppCompatActivity implements  NavigationView.O
             this.acceuil_Fragement = Acceuil.newInstance();
         }
         this.startTransactionFragment(this.acceuil_Fragement);
+    }
+
+    private void showImage(){
+        if(this.image_Fragment == null){
+            this.image_Fragment = LoadImageWithData.newInstance();
+        }
+        this.startTransactionFragment(this.image_Fragment);
     }
 
 

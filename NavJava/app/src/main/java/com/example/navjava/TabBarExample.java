@@ -3,17 +3,12 @@ package com.example.navjava;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.example.navjava.Adapter.ViewPagerAdapter;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class TabBarExample extends Fragment {
 
@@ -38,11 +33,11 @@ public class TabBarExample extends Fragment {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter((getChildFragmentManager()));
 
         /** set the fragents*/
-        Fragment1 fragment1 = Fragment1.newInstance();//page1
-        viewPagerAdapter.addFragment(fragment1,"Fragment1");
+        SimplaCardView fragment1 = SimplaCardView.newInstance();//page1
+        viewPagerAdapter.addFragment(fragment1,"SimplaCardView");
 
-        Fragment2 fragment2 = Fragment2.newInstance();
-        viewPagerAdapter.addFragment(fragment2,"Fragment2");
+        ListOfCardView fragment2 = ListOfCardView.newInstance();
+        viewPagerAdapter.addFragment(fragment2,"ListOfCardView");
 
         Fragment3 fragment3 = Fragment3.newInstance();
         viewPagerAdapter.addFragment(fragment3,"Fragment3");

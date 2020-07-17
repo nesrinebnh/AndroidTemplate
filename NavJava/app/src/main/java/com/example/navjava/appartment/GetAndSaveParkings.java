@@ -4,7 +4,7 @@ import android.widget.Toast;
 
 
 import com.example.navjava.Model.Appartment;
-import com.example.navjava.SearchNearBy;
+import com.example.navjava.SearchTheNearestInGoogleMap;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -21,9 +21,9 @@ public class GetAndSaveParkings {
      *   googleParkingMap, ensuite envoyer le resultat vers firebase puisque l'api est utilisable
      *   uniquement une fois
      */
-    private SearchNearBy mainActivity;
+    private SearchTheNearestInGoogleMap mainActivity;
 
-    public void setMainActivity(SearchNearBy activity){
+    public void setMainActivity(SearchTheNearestInGoogleMap activity){
         mainActivity = activity;
     }
 

@@ -16,12 +16,11 @@ import com.example.navjava.Adapter.RecycleAdapter;
 import com.example.navjava.Model.Appartment;
 
 import java.util.HashMap;
-import java.util.Map;
 
-public class Fragment2 extends Fragment {
+public class ListOfCardView extends Fragment {
 
-    public static Fragment2 newInstance() {
-        return (new Fragment2());
+    public static ListOfCardView newInstance() {
+        return (new ListOfCardView());
     }
 
     MainActivity mapsActivity;
@@ -37,7 +36,7 @@ public class Fragment2 extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_fragment2, container, false);
         mapsActivity = (MainActivity) getActivity();
-        ((MainActivity) getActivity()).setActionBarTitle("Fragment2");
+        ((MainActivity) getActivity()).setActionBarTitle("ListOfCardView");
 
         linearLayoutManager = new LinearLayoutManager(getActivity());
         recyclerView = view.findViewById(R.id.rec);
@@ -47,9 +46,9 @@ public class Fragment2 extends Fragment {
         appartmentHashMap.put("val1", new Appartment("name1"));
         appartmentHashMap.put("val2",new Appartment("name2"));
         appartmentHashMap.put("val3",new Appartment("name3"));
-        recycleAdapter = new RecycleAdapter(getContext(), appartmentHashMap, Fragment2.this);
+        recycleAdapter = new RecycleAdapter(getContext(), appartmentHashMap, ListOfCardView.this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addItemDecoration(new Fragment2.GridSpacingItemDecoration(1,dpToPx(10),true));
+        recyclerView.addItemDecoration(new ListOfCardView.GridSpacingItemDecoration(1,dpToPx(10),true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(recycleAdapter);
 

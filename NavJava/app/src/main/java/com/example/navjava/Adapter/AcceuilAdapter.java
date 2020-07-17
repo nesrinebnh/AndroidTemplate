@@ -1,7 +1,6 @@
 package com.example.navjava.Adapter;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,16 +12,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.navjava.Acceuil;
-import com.example.navjava.Fragment2;
 import com.example.navjava.Model.Appartment;
 import com.example.navjava.R;
-import com.google.android.gms.common.api.Api;
 import com.squareup.picasso.Picasso;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class AcceuilAdapter extends RecyclerView.Adapter<AcceuilAdapter.MyViewHolder> {

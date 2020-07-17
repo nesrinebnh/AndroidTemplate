@@ -7,8 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -16,100 +14,61 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.speech.RecognizerIntent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.Spinner;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
+import com.example.navjava.appartment.Places;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.LocationSource;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
-import com.miguelcatalan.materialsearchview.MaterialSearchView;
+import com.google.android.gms.maps.SupportMapFragment;;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-
-import static android.app.Activity.RESULT_OK;
 import static android.content.Context.LOCATION_SERVICE;
 
-/**
- * user knows the name of the appartment but not the location
- * we can help him to find it by using Geocoder
- * and give him options like add/remove favorite , show direction,..
- */
-
-public class SearchByNameFragment extends Fragment implements OnMapReadyCallback,LocationListener, LocationSource {
-    /**
-     * Glocal variable
-     */
+public class SearchTheNearestInGoogleMap extends Fragment implements OnMapReadyCallback,LocationListener, LocationSource {
     private static final int PERMISSIONS_REQUEST_ENABLE_GPS = 9003;
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 9002;
     private static GoogleMap mMap;
     private LocationManager locationManager;
     private LocationSource.OnLocationChangedListener locationChangedListener;
-    private Address address ;
-    private LatLng latLng;
-    private boolean connect;
-    private Button zoomin,zoomout;
-    private String apartmentName;
-    private MaterialSearchView searchView;
-    private double lat = 0, lng = 0;
+    private ImageView start;
+    private double lat = 0,lng = 0;
+    private  static final int RADIUS = 10000;
+    private static final String KEY ="AIzaSyCduOQmMTrZYWuMAp2g1mxjf1HrJqMaQsE";
     private MainActivity mapsActivity;
+    private Button zoomin, zoomout;
 
-
-
-    public static SearchByNameFragment newInstance() {
-        return (new SearchByNameFragment());
+    public static SearchTheNearestInGoogleMap newInstance() {
+        return (new SearchTheNearestInGoogleMap());
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        /**
-         * initial UI
-         */
-
         mapsActivity = (MainActivity) getActivity();
-
-        ((MainActivity) getActivity()).setActionBarTitle("Search by name");
-
-        View view = inflater.inflate(R.layout.searchbar, container, false);
-        setHasOptionsMenu(true);
-        searchView = (MaterialSearchView) view.findViewById(R.id.search_view);
+        ((MainActivity) getActivity()).setActionBarTitle("Search near by");
+        View view = inflater.inflate(R.layout.searchnearby, container, false);
         zoomin = view.findViewById(R.id.zoomin);
         zoomout = view.findViewById(R.id.zoomout);
-        /**
-         * current location
-         */
+        start = view.findViewById(R.id.btnFind);
 
         /**
-         * initial map
+         * initialiser map
          */
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
         zoomin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,119 +84,60 @@ public class SearchByNameFragment extends Fragment implements OnMapReadyCallback
             }
         });
 
-        /**
-         * search for apartment
-         */
-
-        searchView.setEllipsize(true);
-        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+        start.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                Toast.makeText(getContext(), query, Toast.LENGTH_SHORT).show();
-                apartmentName = query;
-                mMap.clear();
-                if (apartmentName.equals("")) {/** if no place , show error message*/
-                    Toast.makeText(getActivity(), "no apartment enter", Toast.LENGTH_LONG).show();
+            public void onClick(View v) {
+                if ((lat == 0) || (lng == 0)) {
+                    Toast.makeText(getActivity(), "wait for gps", Toast.LENGTH_SHORT).show();
                 } else {
-                    /** place inserted start searching for apartment */
-                    Geocoder geocoder = new Geocoder(getActivity());
-                    List<Address> addressList=null;
-                    try {
-                        addressList = geocoder.getFromLocationName(apartmentName,1);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    if(addressList != null){
-                        if ((addressList.size() > 0)){
-                            address = addressList.get(0);
-                            latLng = new LatLng(address.getLatitude(),address.getLongitude());
-                            Log.i(String.valueOf(address.getLatitude()),String.valueOf(address.getLongitude()));
-                            /**insert your marker*/
-                            mMap.addMarker(new MarkerOptions().position(latLng).title(address.getCountryName()));
-                            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
-
-
-                        }else{
-                            Toast.makeText(getActivity(), "Not found!", Toast.LENGTH_SHORT).show();
-
-                        }
-
-                    }else Toast.makeText(getActivity(), "Surcharge of requests\nplease repeat after a while", Toast.LENGTH_SHORT).show();
-
+                    /**
+                     * google nous propose une methode qui permet de faire la recherche
+                     * avec un url en proposant les parametre indiquer plus bas
+                     */
+                    String url = getUrl(lat,lng);
+                    Object dataTransfer [] = new Object[2];
+                    dataTransfer[0] = mMap;
+                    dataTransfer[1] = url;
+                    /**
+                     * la classe places contient une methode qui travail en background
+                     * qu'elle permet de recherche les parkings et le retourner en String
+                     */
+                    Places places = new Places();
+                    places.setMainActivity(SearchTheNearestInGoogleMap.this);
+                    places.execute(dataTransfer);
+                    /**
+                     * message d'indication
+                     * */
+                    Toast.makeText(getActivity(), "Showing parking ...",Toast.LENGTH_LONG).show();
                 }
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
             }
         });
-        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
-            @Override
-            public void onSearchViewShown() {
-            }
 
-            @Override
-            public void onSearchViewClosed() {
-            }
-        });
+
+
+
+
 
         return view;
     }
 
-
-    /** add SearchMateriel to appbar*/
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_dash, menu);
-        MaterialSearchView searchView = (MaterialSearchView) getActivity().findViewById(R.id.search_view);
-        final MenuItem item = menu.findItem(R.id.action_search);
-        searchView.setMenuItem(item);
-
+    public void onResume() {
+        super.onResume();
 
     }
 
-    /** add actions when click on SearchMateriel*/
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_search:
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == MaterialSearchView.REQUEST_VOICE && resultCode == RESULT_OK) {
-            ArrayList<String> matches = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
-            if (matches != null && matches.size() > 0) {
-                String searchWrd = matches.get(0);
-                if (!TextUtils.isEmpty(searchWrd)) {
-                    searchView.setQuery(searchWrd, false);
-                }
-            }
-
-            return;
-        }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 
     private void buildAlertMessageNoGps() {
         /**
-         * show dialog if GPS permission are not allowed
+         * show dialog if GPS persmissions are not allowed
          */
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("This application requires GPS and network to work properly, do you want to enable them?")
+        builder.setMessage("This application requires GPS to work properly, do you want to enable it?")
                 .setCancelable(false)
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
-                        WifiManager wifi = (WifiManager) getActivity().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
-                        wifi.setWifiEnabled(true);
                         Intent enableGpsIntent = new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         startActivityForResult(enableGpsIntent, PERMISSIONS_REQUEST_ENABLE_GPS);
                     }
@@ -264,7 +164,7 @@ public class SearchByNameFragment extends Fragment implements OnMapReadyCallback
     }
 
     /**
-     * LocationListener methods
+     * LocationListner
      * @param location
      */
     @Override
@@ -273,6 +173,11 @@ public class SearchByNameFragment extends Fragment implements OnMapReadyCallback
             locationChangedListener.onLocationChanged(location);
             lat = location.getLatitude();
             lng = location.getLongitude();
+
+            Log.i("changed0","ok");
+            final int latSave;
+            final int lngSave;
+
         }
     }
 
@@ -289,7 +194,7 @@ public class SearchByNameFragment extends Fragment implements OnMapReadyCallback
     }
 
     /**
-     * locationSource methods
+     * LocationSource methods
      * @param onLocationChangedListener
      */
     @Override
@@ -302,18 +207,14 @@ public class SearchByNameFragment extends Fragment implements OnMapReadyCallback
         locationChangedListener = null;
     }
 
-    public static GoogleMap getmMap() {
-        return mMap;
-    }
-
     /**
-     * OnMapReadyCallback method
+     * OnMapReadyCallback
      * @param googleMap
      */
-
     @Override
     public void onMapReady(final GoogleMap googleMap) {
         mMap = googleMap;
+
         if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION
                     , Manifest.permission.ACCESS_COARSE_LOCATION};
@@ -343,7 +244,41 @@ public class SearchByNameFragment extends Fragment implements OnMapReadyCallback
         }
 
 
+
     }
+
+
+
+    /**
+     * useful method
+     */
+    private String getUrl(double lat, double lng) {
+        /**
+         * on cherche les appartements donc on precise dans l'attribut type appartement,
+         * la key c'est la key de google map places (elle est utilisable une fois par jours
+         * et donc il faut la changer apres chaque test et pour cela nous avons creer une liste d'api
+         * qui sont les suivantes:
+         * AIzaSyDuyIv_d9i89QWqCjGEEuvPdO1X49NPNN0
+         * AIzaSyCi0gcm2nyMaf_kexNjGV_QUJvoRWoMyDE
+         * AIzaSyDxYMUeCtMG-n23idvYNTbsDrgXLKGqhLQ
+         * AIzaSyBf8VIGKetwwI6qbBkkwmevBVBSZnws2yc
+         * AIzaSyCduOQmMTrZYWuMAp2g1mxjf1HrJqMaQsE
+         * AIzaSyAUFDk6a14L0MyQCQwD6xQr6QyY37ScNjc
+         *
+         * le radius a 3000m = 3km
+         * lat et lng initialiser a 0
+         */
+        StringBuilder url = new StringBuilder();
+        url.append("https://maps.googleapis.com/maps/api/place/nearbysearch/json?");
+        url.append("location=" + lat + "," + lng  + "&radius=" + RADIUS);
+        url.append("&type=parking&key=" + KEY);
+        return url.toString();
+    }
+
+
+
+
+
 
 
     private boolean isNetworkAvailable() {
@@ -385,8 +320,6 @@ public class SearchByNameFragment extends Fragment implements OnMapReadyCallback
 
                     } else {
                         isAnswered = true;
-
-
                     }
                 }
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 5000L, 10F, this);
@@ -399,7 +332,10 @@ public class SearchByNameFragment extends Fragment implements OnMapReadyCallback
         }
     }
 
+    public static GoogleMap getmMap() {
+        return mMap;
+    }
+    public GoogleMap  getmMapVoid(){
+        return mMap;
+    }
 }
-
-
-

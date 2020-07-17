@@ -1,7 +1,6 @@
 package com.example.navjava.Adapter;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -9,12 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.navjava.Fragment2;
+import com.example.navjava.ListOfCardView;
 import com.example.navjava.Model.Appartment;
 import com.example.navjava.R;
-import com.google.android.gms.common.api.Api;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,9 +23,9 @@ public class RecycleAdapter extends RecyclerView.Adapter<RecycleAdapter.MyViewHo
     private List<Appartment> appartmentList;
     private int j;
 
-    private Fragment2 fragment2;
+    private ListOfCardView fragment2;
 
-    public RecycleAdapter(Context context, HashMap<String, Appartment> map, Fragment2 fragment2
+    public RecycleAdapter(Context context, HashMap<String, Appartment> map, ListOfCardView fragment2
                          ){
         this.context = context;
         Log.i("TAG","map size :: "+String.valueOf(map.size()) );
