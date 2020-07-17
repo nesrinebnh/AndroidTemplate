@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2020 at 02:10 PM
+-- Generation Time: Jul 17, 2020 at 02:36 PM
 -- Server version: 5.6.17
 -- PHP Version: 5.5.12
 
@@ -27,24 +27,25 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `appartement` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(120) NOT NULL,
   `type` varchar(50) NOT NULL,
-  `lat` double NOT NULL,
-  `lng` double NOT NULL,
+  `lat` varchar(200) NOT NULL,
+  `lng` varchar(100) NOT NULL,
   `adress` varchar(200) CHARACTER SET utf8 NOT NULL,
-  `prix` double NOT NULL,
-  `image` varchar(300) NOT NULL,
+  `prix` varchar(100) NOT NULL,
+  `image` text NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Dumping data for table `appartement`
 --
 
 INSERT INTO `appartement` (`id`, `name`, `type`, `lat`, `lng`, `adress`, `prix`, `image`) VALUES
-(1, 'app1', 'vendre', 14.3521, 37.12584, 'Alger, Algerie', 1000000, 'uploads/5f0d7fcf554618.77509514.jpg'),
-(2, 'app2', 'vendre', 15.214, 37.125, 'Bab ezzouar Algerie', 178000, 'uploads/5f0d8011b62d04.11842460.jpg');
+(6, 'namekjjfdssh', 'allocation', '36.7146746', '3.194601', 'donosomrthinf, hfj', '63737', 'uploads/namekjjfdssh.jpg'),
+(7, 'EmRIuxhJgB', 'allocation', '36.7146758', '3.1946027', 'gfjsd', '5637', 'uploads/EmRIuxhJgB.jpg'),
+(8, 'KavDfSQ', 'allocation', '36.7146758', '3.1946027', 'gfjsd', '5637', 'uploads/KavDfSQ.jpg');
 
 -- --------------------------------------------------------
 
@@ -89,6 +90,16 @@ INSERT INTO `etablissements` (`id`, `code_etab`, `etablissement`) VALUES
 (292, 'OU-EPH-14260', 'EPH Ain El Hammam (Ain El Hammam)'),
 (293, 'OU-EPH-18498', 'EPH Ain Defla (Ain Defla)'),
 (294, 'OU-EPH-15994', 'EPH Ain Boucif Aissa Kirouan (Ain Boucif)');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `image`
+--
+
+CREATE TABLE IF NOT EXISTS `image` (
+  `image_path` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
